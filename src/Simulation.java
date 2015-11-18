@@ -66,6 +66,11 @@ public class Simulation {
 		return file;
 	}
 
+	/**
+	 * Finds the number of rows in the file
+	 * @param file
+	 * @return
+	 */
 	private static int getNumRows(Scanner file)
 	{
 		int numRows = 0;
@@ -78,6 +83,11 @@ public class Simulation {
 		return numRows;
 	}
 
+	/**
+	 * Finds the number of columns in the file
+	 * @param file
+	 * @return
+	 */
 	private static int getNumCols(Scanner file)
 	{
 		int numCols = 0;
@@ -118,6 +128,13 @@ public class Simulation {
 		System.out.println();
 	}
 
+	/**
+	 * Turns an island full of 'X's into an island characterized by a more specific label
+	 * @param pondsIslands
+	 * @param row
+	 * @param col
+	 * @param label
+	 */
 	private static void floodFillLand(char[][] pondsIslands, int row, int col, char label)
 	{
 		if (isValid(pondsIslands, row, col))
@@ -138,6 +155,13 @@ public class Simulation {
 		}
 	}
 
+	/**
+	 * Checks to see if a certain row and col is inside the pondsIslands array
+	 * @param pondsIslands
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	private static boolean isValid(char[][] pondsIslands, int row, int col)
 	{
 		if (row < 0)
@@ -162,6 +186,13 @@ public class Simulation {
 		}
 	}
 
+	/**
+	 * Turns an pond full of '.'s into an pond characterized by a more specific label
+	 * @param pondsIslands
+	 * @param row
+	 * @param col
+	 * @param label
+	 */
 	private static void floodFillWater(char[][] pondsIslands, int row, int col, char label)
 	{
 		if (isValid(pondsIslands, row, col))
@@ -178,6 +209,12 @@ public class Simulation {
 		}
 	}
 
+	/**
+	 * Prints out useful information about the number of ponds and islands
+	 * @param pondsIslands
+	 * @param waterCounter
+	 * @param landCounter
+	 */
 	private static void display(char[][] pondsIslands, int waterCounter, int landCounter)
 	{
 		for (int row = 0; row < pondsIslands.length; row++)
