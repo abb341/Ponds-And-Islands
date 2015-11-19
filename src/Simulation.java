@@ -2,13 +2,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Simulation {
+/****************************************************************************** *
+* Name: Aaron Brown
+* Block: G
+* Date: November 19, 2015
+*
+* Program #6: Ponds and Islands
+* Description:
+* 	This program reads in a text file that is a map of ponds and islands.
+* Islands are denoted by an 'X' and ponds are denoted by a '.'. This program 
+* uses recursion to label different ponds and islands so that the user can
+* see how many there are.  
+* ******************************************************************************/
+public class Simulation
+{
 
 	private static String FILE_NAME = "map.txt";
 	private static char ISLAND = 'X';
 	private static char POND = '.';
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		Scanner file = openTheFile();
 		final int NUM_ROWS = getNumRows(file);
 		final int NUM_COLS = getNumCols(file);
@@ -17,32 +31,7 @@ public class Simulation {
 		char[][] pondsIslands = new char[NUM_ROWS][NUM_COLS];
 		fillPondsIslandsArray(pondsIslands, NUM_ROWS, NUM_COLS, file);
 
-		int landCounter = 0;
-		int waterCounter = 0;
-		char landLabel = 'a' - 1;
-		char waterLabel = '0';
-
-		for (int row = 0; row < NUM_ROWS; row++)
-		{
-			for (int col = 0; col < NUM_COLS; col++)
-			{
-				if (pondsIslands[row][col] == ISLAND)
-				{
-					landCounter++;
-					landLabel++;
-					floodFillLand(pondsIslands, row, col, landLabel);
-				}
-				else if (pondsIslands[row][col] == POND)
-				{
-					waterCounter++;
-					String temp = waterCounter + "";
-					waterLabel = temp.charAt(0);
-					floodFillWater(pondsIslands, row, col, waterLabel);
-				}
-			}
-		}
-
-		display(pondsIslands, waterCounter, landCounter);
+		updateAndDisplayNumPondsAndIslands(pondsIslands, NUM_ROWS, NUM_COLS);	
 	}
 
 	/**
@@ -124,8 +113,45 @@ public class Simulation {
 			}
 			System.out.println();
 		}
-		
+
 		System.out.println();
+	}
+
+	/**
+	 * Handles the logic in finding the number of ponds and islands
+	 * @param pondsIslands
+	 * @param NUM_ROWS
+	 * @param NUM_COLS
+	 */
+	private static void updateAndDisplayNumPondsAndIslands(char[][] pondsIslands,
+			int NUM_ROWS, int NUM_COLS)
+	{
+		int landCounter = 0;
+		int waterCounter = 0;
+		char landLabel = 'a' - 1;
+		char waterLabel = '0';
+		
+		for (int row = 0; row < NUM_ROWS; row++)
+		{
+			for (int col = 0; col < NUM_COLS; col++)
+			{
+				if (pondsIslands[row][col] == ISLAND)
+				{
+					landCounter++;
+					landLabel++;
+					floodFillLand(pondsIslands, row, col, landLabel);
+				}
+				else if (pondsIslands[row][col] == POND)
+				{
+					waterCounter++;
+					String temp = waterCounter + "";
+					waterLabel = temp.charAt(0);
+					floodFillWater(pondsIslands, row, col, waterLabel);
+				}
+			}
+		}
+
+		display(pondsIslands, waterCounter, landCounter);
 	}
 
 	/**
@@ -226,7 +252,7 @@ public class Simulation {
 			System.out.println();
 		}
 		System.out.println();
-		
+
 		System.out.println("Ponds: " + waterCounter);
 		System.out.println("Islands: " + landCounter);
 	}
